@@ -1,0 +1,23 @@
+{
+  "MAX_TICKERS": 60,
+  "WINDOW_SIZE": 100,
+  "TEST_LEN": 600,
+  "VAL_LEN": 600,
+  "model": {
+    "hidden": 96,
+    "num_layers": 2,
+    "dropout": 0.1
+  },
+  "train": {
+    "batch_size": 256,
+    "epochs": 500,
+    "lr": 0.0008,
+    "weight_decay": 1e-05,
+    "grad_clip": 1.0
+  },
+  "test_metrics": {
+    "sharpe_ann": 1.444073499406776,
+    "max_dd": 0.013853015378117561,
+    "turnover": 0.3569200336933136
+  }
+}
