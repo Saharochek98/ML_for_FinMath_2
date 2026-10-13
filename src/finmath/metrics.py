@@ -4,10 +4,11 @@
 import numpy as np
 import pandas as pd
 
+PERIODS_PER_YEAR_4H = 365 * 6
 
 def annualized_volatility(
     returns: pd.Series,
-    periods_per_year: int = 252,
+    periods_per_year: int = PERIODS_PER_YEAR_4H,
 ) -> float:
     """Calculate annualized volatility of periodic returns."""
     if periods_per_year <= 0:
@@ -25,7 +26,7 @@ def annualized_volatility(
 
 def sharpe_ratio(
     returns: pd.Series,
-    periods_per_year: int = 252,
+    periods_per_year: int = PERIODS_PER_YEAR_4H,
     risk_free_rate: float = 0.0,
 ) -> float:
     """Calculate annualized Sharpe ratio.

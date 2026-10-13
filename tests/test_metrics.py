@@ -4,6 +4,7 @@ import pandas as pd
 import pytest
 
 from finmath.metrics import (
+    PERIODS_PER_YEAR_4H,
     annualized_volatility,
     max_drawdown,
     sharpe_ratio,
@@ -13,7 +14,7 @@ from finmath.metrics import (
 def test_annualized_volatility():
     returns = pd.Series([0.01, -0.01, 0.02, -0.02])
 
-    expected = returns.std(ddof=1) * np.sqrt(252)
+    expected = returns.std(ddof=1) * np.sqrt(PERIODS_PER_YEAR_4H)
 
     assert annualized_volatility(returns) == pytest.approx(
         expected
@@ -26,7 +27,7 @@ def test_sharpe_ratio():
     expected = (
         returns.mean()
         / returns.std(ddof=1)
-        * np.sqrt(252)
+        * np.sqrt(PERIODS_PER_YEAR_4H)
     )
 
     assert sharpe_ratio(returns) == pytest.approx(expected)
@@ -65,3 +66,15 @@ def test_invalid_annualization_factor():
 
     with pytest.raises(ValueError):
         sharpe_ratio(returns, periods_per_year=0)
+
+
+def test_four_hour_annualization():
+    returns = pd.Series([0.01, -0.02, 0.015, 0.005])
+
+    expected = (
+        returns.mean()
+        / returns.std(ddof=1)
+        * np.sqrt(2190)
+    )
+
+    assert sharpe_ratio(returns) == pytest.approx(expected)
